@@ -97,14 +97,25 @@ def process_file(in_path, out_path):
         header = first_chunk
         chunk.to_csv(out_path, sep="\t", index=False, mode=mode, header=header)
         first_chunk = False
+        gc.collect()
         
     print(f"Finished {out_path}")
 
 if __name__ == "__main__":
-    data_dir = os.path.join("student_resource", "dataset")
-    out_dir = os.path.join("student_resource", "normalized_dataset")
+    # Point this to where Kaggle saved your uploaded dataset
+    data_dir = "/kaggle/input/datasets/sameerbaranwal/amazon-ml-hackathon-dataset" 
+    
+    # Kaggle's writable output directory
+    out_dir = "/kaggle/working/normalized_dataset"
     os.makedirs(os.path.join(out_dir, "train"), exist_ok=True)
     os.makedirs(os.path.join(out_dir, "test"), exist_ok=True)
     
-    # We will process one file as a test
-    print("Normalizers loaded successfully.")
+    # Process the TEST files (since you want the final submission)
+    process_file(os.path.join(data_dir, "test_source1.tsv"), 
+                 os.path.join(out_dir, "test_source1.tsv"))
+    process_file(os.path.join(data_dir, "test_source2.tsv"), 
+                 os.path.join(out_dir, "test_source2.tsv"))
+    process_file(os.path.join(data_dir, "test_source3.tsv"), 
+                 os.path.join(out_dir, "test_source3.tsv"))
+    
+    print("Normalizers loaded and test normalization completed successfully.")
