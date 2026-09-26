@@ -1,0 +1,8 @@
+﻿pandas
+scikit-learn
+faiss-cpu
+datasketch
+jellyfish
+xgboost
+lightgbm
+rapidfuzz
